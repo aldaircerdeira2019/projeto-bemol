@@ -15,9 +15,9 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->char('cpf', 11)->unique();
+            $table->char('cpf', 14)->unique();
             $table->date('birth');
-            $table->char('phone', 11);
+            $table->char('phone', 15);
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

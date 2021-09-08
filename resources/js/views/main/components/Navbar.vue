@@ -27,9 +27,9 @@
             </li>
 
             <li class="nav-item">
-              <a href="#">
+              <router-link :to="{ name: 'client.create' }" class="nav-link">
                 Registrar
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>

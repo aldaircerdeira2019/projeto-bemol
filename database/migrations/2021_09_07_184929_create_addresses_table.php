@@ -17,7 +17,7 @@ class CreateAddressesTable extends Migration
             $table->string('cep', 9);
             $table->string('logradouro');
             $table->string('bairro');
-            $table->string('complemento');
+            $table->string('complemento')->nullable();
             $table->bigInteger('numero');
             $table->string('localidade');
             $table->char('uf',2);
