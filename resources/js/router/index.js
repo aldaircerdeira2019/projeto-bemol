@@ -1,35 +1,52 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from '../views/home/Home.vue';
-import ClientCreate from '../views/client/ClientCreate.vue';
-import Login from '../views/auth/Login.vue';
-
+import Home from "../views/home/Home.vue";
+import ClientCreate from "../views/client/ClientCreate.vue";
+import Login from "../views/auth/Login.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: Home
+    path: "/",
+    name: "home",
+    component: Home,
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: Login
   },
   {
-    path: '/cliente/registrar',
-    name: 'client.create',
+    path: "/cliente/registrar",
+    name: "client.create",
     component: ClientCreate
-  },
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: '/spa',
+  base: "/spa",
   routes
 });
 
+function isLoggedIn() {
+  return localStorage.getItem("auth");
+}
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.authOnly)) {
+    if (!isLoggedIn()) {
+      next({
+        name: "login",
+        query: { redirect: to.fullPath }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

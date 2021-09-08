@@ -2717,6 +2717,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _api_auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../api/auth */ "./resources/js/api/auth.js");
 //
 //
 //
@@ -2755,8 +2756,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Navbar"
+  name: "Navbar",
+  data: function data() {
+    return {
+      authUser: null
+    };
+  },
+  mounted: function mounted() {
+    this.authenticated();
+  },
+  methods: {
+    logout: function logout() {
+      _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].logout().then(function (r) {
+        window.location.href = "/spa/";
+      });
+    },
+    authenticated: function authenticated() {
+      var _this = this;
+
+      _api_auth__WEBPACK_IMPORTED_MODULE_0__["default"].authenticated().then(function (r) {
+        _this.authUser = r.data;
+        localStorage.setItem("auth", "true");
+      })["catch"](function () {
+        _this.authUser = null;
+        localStorage.removeItem("auth");
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2968,22 +3021,45 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
 var routes = [{
-  path: '/',
-  name: 'home',
+  path: "/",
+  name: "home",
   component: _views_home_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
-  path: '/login',
-  name: 'login',
+  path: "/login",
+  name: "login",
   component: _views_auth_Login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
-  path: '/cliente/registrar',
-  name: 'client.create',
+  path: "/cliente/registrar",
+  name: "client.create",
   component: _views_client_ClientCreate_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   mode: "history",
-  base: '/spa',
+  base: "/spa",
   routes: routes
+});
+
+function isLoggedIn() {
+  return localStorage.getItem("auth");
+}
+
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.authOnly;
+  })) {
+    if (!isLoggedIn()) {
+      next({
+        name: "login",
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
@@ -40683,39 +40759,89 @@ var render = function() {
                 attrs: { id: "navbarSupportedContent" }
               },
               [
-                _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
+                _vm.authUser
+                  ? _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+                      _c("li", { staticClass: "nav-item dropdown" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "nav-link dropdown-toggle",
+                            attrs: {
+                              id: "navbarDropdown",
+                              href: "#",
+                              role: "button",
+                              "data-toggle": "dropdown",
+                              "aria-haspopup": "true",
+                              "aria-expanded": "false"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(_vm.authUser.name) +
+                                "\n            "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "dropdown-menu dropdown-menu",
+                            attrs: { "aria-labelledby": "navbarDropdown" }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.logout.apply(null, arguments)
+                                  }
+                                }
+                              },
+                              [_vm._v("\n                Sair\n              ")]
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  : _c("ul", { staticClass: "navbar-nav ml-auto" }, [
                       _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "login" } }
-                        },
-                        [_vm._v("\n              Entrar\n            ")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: { name: "login" } }
+                            },
+                            [_vm._v("\n              Entrar\n            ")]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "client.create" } }
-                        },
-                        [_vm._v("\n              Registrar\n            ")]
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link",
+                              attrs: { to: { name: "client.create" } }
+                            },
+                            [_vm._v("\n              Registrar\n            ")]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  )
-                ])
+                    ])
               ]
             )
           ],
