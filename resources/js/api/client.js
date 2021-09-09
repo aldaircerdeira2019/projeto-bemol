@@ -12,6 +12,15 @@ let api = {
     return axios.get(rota + 'cliente/' + id);
   },
 
+  editCliente(id) {
+    return axios.get(rota + 'cliente/' + id + '/edit');
+  },
+
+  updateCliente(id, params) {
+    return axios.put(rota + 'cliente/' + id , params);
+  },
+
+
   getCep(cep) {
     return axios.get(`https://viacep.com.br/ws/${cep}/json/`);
   },

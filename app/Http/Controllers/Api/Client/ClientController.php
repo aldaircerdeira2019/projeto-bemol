@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Client\StoreClientRequest;
+use App\Http\Requests\Api\Client\UpdateClientRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Client;
@@ -32,5 +33,21 @@ class ClientController extends Controller
         $client = User::find($id)->client->load('addresse', 'user');
         $this->authorize('client', $client);
         return response()->json($client);
+    }
+
+    public function edit(Client $cliente){
+        $cliente->load('addresse', 'user');
+        $this->authorize('client', $cliente);
+        return response()->json($cliente);
+    }
+
+    public function update(UpdateClientRequest $request, Client $cliente)
+    {
+        $this->authorize('client', $cliente);
+        $cliente->update($request->all());
+        $cliente->user->update($request->all());
+        $cliente->addresse->update($request->all());
+
+        return response()->json(null, 200);
     }
 }
