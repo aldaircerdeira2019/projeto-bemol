@@ -405,6 +405,7 @@
 <script>
 import { TheMask } from "vue-the-mask";
 import api from "../../api/client";
+import apiAuth from "../../api/auth";
 export default {
   name: "ClientCreate",
   components: { TheMask },
@@ -455,8 +456,9 @@ export default {
     createClient() {
       api
         .createCliente(this.form)
-        .then((r) => {
-           console.log(r.data);
+        .then(() => {
+          this.$toastr.s("Cadastrado com sucesso!");
+          this.login();
         })
         .catch((error) => {
           if (error.response.data.errors) {
@@ -464,6 +466,15 @@ export default {
           } else {
             this.$toastr.e(`${error.response.data.message}`);
           }
+        });
+    },
+
+    async login() {
+      await new Promise((t) => setTimeout(t, 2000));
+      apiAuth
+        .login({ email: this.form.email, password: this.form.password })
+        .then(() => {
+          window.location.href = "/spa/";
         });
     },
   },

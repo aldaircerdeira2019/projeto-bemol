@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/home/Home.vue";
 import ClientCreate from "../views/client/ClientCreate.vue";
+import ClientShow from "../views/client/ClientShow.vue";
+import ClientEdit from "../views/client/ClientEdit.vue";
 import Login from "../views/auth/Login.vue";
 
 Vue.use(VueRouter);
@@ -21,6 +23,18 @@ const routes = [
     path: "/cliente/registrar",
     name: "client.create",
     component: ClientCreate
+  },
+  {
+    path: "/cliente/:id",
+    name: "client.show",
+    component: ClientShow,
+    meta: { authOnly: true }
+  },
+  {
+    path: "/cliente/editar/:id",
+    name: "client.edit",
+    component: ClientEdit,
+    meta: { authOnly: true }
   }
 ];
 

@@ -36,6 +36,9 @@
                 class="dropdown-menu dropdown-menu"
                 aria-labelledby="navbarDropdown"
               >
+                <router-link :to="{ name: 'client.show',  params:{'id': authUser.id}}" class="dropdown-item">
+                    Perfil
+                </router-link>
                 <a class="dropdown-item" @click.prevent="logout" href="#">
                   Sair
                 </a>

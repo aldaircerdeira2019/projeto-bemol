@@ -23,4 +23,4 @@ Route::middleware('auth:sanctum')->get('/authenticated', function (Request $requ
 Route::post('login' , [LoginController::class, 'login']);
 Route::post('logout' , [LoginController::class, 'logout']);
 
-Route::resource('cliente', ClientController::class)->only(['store']);
+Route::resource('cliente', ClientController::class)->only(['store', 'show']);

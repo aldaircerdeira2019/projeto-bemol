@@ -24,6 +24,13 @@ class ClientController extends Controller
 
         $client->setAddresse($request->all());
 
-        return $request->validated();
+        return response()->json(null, 202);
+    }
+
+    public function show($id){
+
+        $client = User::find($id)->client->load('addresse', 'user');
+        $this->authorize('client', $client);
+        return response()->json($client);
     }
 }
