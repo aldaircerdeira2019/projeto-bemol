@@ -3,6 +3,7 @@ import App from "./views/main/App";
 import router from "./router/index";
 import Toastr from "./plugin/vue-toastr";
 import DateFormat from "./plugin/vue-filter-date-format";
+import SimpleAlert from "./plugin/alert";
 
 window.Vue = require("vue").default;
 Vue.prototype.$acl = false;
@@ -13,5 +14,6 @@ const app = new Vue({
   components: { App },
   router,
   Toastr,
-  DateFormat
+  DateFormat,
+  SimpleAlert
 });

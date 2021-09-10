@@ -96,7 +96,14 @@
                             class="dropdown-menu"
                             aria-labelledby="dropdownMenu2"
                           >
-                            <router-link :to="{ name: 'admin.client.show',  params:{'id': client.id}}"  class="dropdown-item" type="button">
+                            <router-link
+                              :to="{
+                                name: 'admin.client.show',
+                                params: { id: client.id },
+                              }"
+                              class="dropdown-item"
+                              type="button"
+                            >
                               <i class="bi bi-eye-fill"></i>
                               Vizualizar
                             </router-link>
@@ -104,7 +111,11 @@
                               <i class="bi bi-pencil-square"></i>
                               Editar
                             </button>
-                            <button class="dropdown-item" type="button">
+                            <button
+                              @click.prevent="delClient(client)"
+                              class="dropdown-item"
+                              type="button"
+                            >
                               <i class="bi bi-trash-fill"></i>
                               Excluir
                             </button>
@@ -166,6 +177,20 @@ export default {
         .catch((error) => {
           this.$toastr.e(`${error.response.data.message}`);
         });
+    },
+    delClient(client) {
+      this.$confirm(
+      `Você realmente deseja excluir o cliente : ${client.name} ?`,
+      "Cliente",
+      "question").then(() => {
+        apiAdmin.delCliente(client.id).then(()=>{
+          this.$toastr.s(`excluido com sucesso!`);
+          this.getClients();
+        })
+        .catch((error) => {
+          this.$toastr.e(`${error.response.data.message}`);
+        });
+      });
     },
   },
 };

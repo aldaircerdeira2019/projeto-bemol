@@ -21,4 +21,11 @@ class AdminClientsController extends Controller
         $client->load('addresse', 'user');
         return response()->json($client);
     }
+
+    public function destroy(Client $client){
+        $user = $client->user;
+        $client->delete();
+        $user->delete();
+        return response()->json(null, 200);
+    }
 }

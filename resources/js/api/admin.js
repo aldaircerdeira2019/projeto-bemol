@@ -10,6 +10,10 @@ let api = {
     return axios.get(rota + "admin/clients/" + id);
   },
 
+  delCliente(id) {
+    return axios.delete(rota + "admin/clients/" + id);
+  },
+
   getCep(cep) {
     return axios.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
