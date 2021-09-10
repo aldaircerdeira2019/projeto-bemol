@@ -96,10 +96,10 @@
                             class="dropdown-menu"
                             aria-labelledby="dropdownMenu2"
                           >
-                            <button class="dropdown-item" type="button">
+                            <router-link :to="{ name: 'admin.client.show',  params:{'id': client.id}}"  class="dropdown-item" type="button">
                               <i class="bi bi-eye-fill"></i>
                               Vizualizar
-                            </button>
+                            </router-link>
                             <button class="dropdown-item" type="button">
                               <i class="bi bi-pencil-square"></i>
                               Editar

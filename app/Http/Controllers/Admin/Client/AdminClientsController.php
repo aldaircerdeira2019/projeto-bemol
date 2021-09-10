@@ -16,4 +16,9 @@ class AdminClientsController extends Controller
         $clients = $client->filter($params->all());
         return response()->json($clients);
     }
+
+    public function show(Client $client){
+        $client->load('addresse', 'user');
+        return response()->json($client);
+    }
 }
