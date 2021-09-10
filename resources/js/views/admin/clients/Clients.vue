@@ -107,10 +107,10 @@
                               <i class="bi bi-eye-fill"></i>
                               Vizualizar
                             </router-link>
-                            <button class="dropdown-item" type="button">
+                            <router-link :to="{ name: 'admin.client.edit',  params:{'id': client.id}}"  class="dropdown-item" type="button">
                               <i class="bi bi-pencil-square"></i>
                               Editar
-                            </button>
+                            </router-link>
                             <button
                               @click.prevent="delClient(client)"
                               class="dropdown-item"

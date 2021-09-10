@@ -6,8 +6,9 @@ import ClientShow from "../views/client/ClientShow.vue";
 import ClientEdit from "../views/client/ClientEdit.vue";
 import Login from "../views/auth/Login.vue";
 import Clients from "../views/admin/clients/Clients.vue";
-import ClientShowAdmin from "../views/admin/clients/ClientShowAdmin.vue"
-import ClientCreateAdmin from "../views/admin/clients/ClientCreateAdmin.vue"
+import ClientShowAdmin from "../views/admin/clients/ClientShowAdmin.vue";
+import ClientCreateAdmin from "../views/admin/clients/ClientCreateAdmin.vue";
+import ClientEditAdmin from "../views/admin/clients/ClientEditAdmin.vue";
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home,
+    component: Home
   },
   {
     path: "/login",
@@ -56,8 +57,13 @@ const routes = [
     name: "admin.client.create",
     component: ClientCreateAdmin,
     meta: { authOnly: true }
+  },
+  {
+    path: "/admin/cliente/editar/:id",
+    name: "admin.client.edit",
+    component: ClientEditAdmin,
+    meta: { authOnly: true }
   }
-
 ];
 
 const router = new VueRouter({

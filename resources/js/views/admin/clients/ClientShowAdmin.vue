@@ -14,9 +14,9 @@
                   </h5>
                 </div>
                 <div class="col-sm-4 text-right">
-                  <button class="btn btn-success btn-sm">
-                    <i class="bi bi-save"></i> Editar ---
-                  </button>
+                  <router-link :to="{ name: 'admin.client.edit',  params:{'id': client.id}}" class="btn btn-success btn-sm">
+                    <i class="bi bi-save"></i> Editar
+                  </router-link >
                 </div>
               </div>
             </div>

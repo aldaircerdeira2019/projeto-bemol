@@ -10,11 +10,11 @@
                 <div class="col-sm-8">
                   <h5 class="mt-10 text-muted">
                     Administração <i class="bi bi-arrow-right"></i> Cliente
-                    <i class="bi bi-arrow-right"></i> Cadastro
+                    <i class="bi bi-arrow-right"></i> Atualizar
                   </h5>
                 </div>
                 <div class="col-sm-4 text-right">
-                  <button @click.prevent="createClient" class="btn btn-success btn-sm">
+                  <button @click.prevent="updateClient" class="btn btn-success btn-sm">
                     <i class="bi bi-save"></i> Salvar
                   </button>
                 </div>
@@ -173,53 +173,6 @@
                           />
                           <div class="invalid-feedback" v-if="errors.email">
                             {{ errors.email[0] }}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group row">
-                        <label
-                          for="password"
-                          class="col-md-4 col-form-label text-md-right"
-                        >
-                          Senha</label
-                        >
-                        <div class="col-md-6">
-                          <input
-                            type="password"
-                            :class="`form-control ${
-                              errors.password ? 'is-invalid' : ''
-                            }`"
-                            id="password"
-                            v-model="form.password"
-                          />
-                          <div class="invalid-feedback" v-if="errors.password">
-                            {{ errors.password[0] }}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="form-group row">
-                        <label
-                          for="password_confirmation"
-                          class="col-md-4 col-form-label text-md-right"
-                        >
-                          Confirmar senha</label
-                        >
-                        <div class="col-md-6">
-                          <input
-                            type="password"
-                            :class="`form-control ${
-                              errors.password_confirmation ? 'is-invalid' : ''
-                            }`"
-                            id="password_confirmation"
-                            v-model="form.password_confirmation"
-                          />
-                          <div
-                            class="invalid-feedback"
-                            v-if="errors.password_confirmation"
-                          >
-                            {{ errors.password_confirmation[0] }}
                           </div>
                         </div>
                       </div>
@@ -436,9 +389,10 @@
 <script>
 import Menu from "../components/Menu.vue";
 import apiAdmin from "../../../api/admin";
+import { format } from 'date-fns';
 import { TheMask } from "vue-the-mask";
 export default {
-  name: "ClientCreateAdmin",
+  name: "ClientEditAdmin",
   components: { Menu, TheMask },
   data() {
     return {
@@ -448,8 +402,6 @@ export default {
         birth: "",
         phone: "",
         email: "",
-        password: "",
-        password_confirmation: "",
         cep: "",
         logradouro: "",
         bairro: "",
@@ -460,6 +412,9 @@ export default {
       },
       errors: [],
     };
+  },
+  mounted() {
+    this.getClient();
   },
   methods: {
     getCep(string) {
@@ -484,12 +439,12 @@ export default {
       }
     },
 
-    createClient() {
+    updateClient() {
         apiAdmin
-        .createCliente(this.form)
+       .updateCliente(this.$route.params.id, this.form)
         .then(() => {
-          this.$toastr.s("Cadastrado com sucesso!");
-           this.voltar();
+          this.$toastr.s("Atualizado com sucesso!");
+          this.voltar();
         })
         .catch((error) => {
           if (error.response.data.errors) {
@@ -499,6 +454,30 @@ export default {
           }
         });
     },
+
+      getClient() {
+      apiAdmin
+        .showCliente(this.$route.params.id)
+        .then((response) => {
+          console.log(response.data.addresse.cep);
+          this.form.cpf = response.data.cpf;
+          this.form.name= response.data.user.name;
+          this.form.birth= format(new Date(response.data.birth), 'MM/dd/yyyy');
+          this.form.phone= response.data.phone;
+          this.form.email= response.data.user.email;
+          this.form.cep = response.data.addresse.cep;
+          this.form.logradouro = response.data.addresse.logradouro;
+          this.form.bairro = response.data.addresse.bairro;
+          this.form.complemento = response.data.addresse.complemento;
+          this.form.numero = response.data.addresse.numero;
+          this.form.localidade = response.data.addresse.localidade;
+          this.form.uf = response.data.addresse.uf;
+        })
+        .catch(() => {
+          this.$toastr.e("Ocorreu um erro.");
+        });
+    },
+
 
     async voltar() {
       await new Promise((t) => setTimeout(t, 2000));

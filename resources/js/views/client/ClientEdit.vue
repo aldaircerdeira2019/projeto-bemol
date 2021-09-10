@@ -7,7 +7,7 @@
             <div class="row">
               <div class="col-sm-8">
                 <h5 class="mt-10 text-muted">
-                  Cliente <i class="bi bi-arrow-right"></i> Registro
+                  Cliente <i class="bi bi-arrow-right"></i> Atualizar
                 </h5>
               </div>
               <div class="col-sm-4 text-right">

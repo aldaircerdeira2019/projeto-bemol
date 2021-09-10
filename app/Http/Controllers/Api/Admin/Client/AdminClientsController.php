@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\User;
 use App\Http\Requests\Api\Admin\StoreClientRequest;
+use App\Http\Requests\Api\Admin\UpdateClientRequest;
 use Illuminate\Support\Facades\Hash;
 
 class AdminClientsController extends Controller
@@ -45,5 +46,14 @@ class AdminClientsController extends Controller
         $client->setAddresse($request->all());
 
         return response()->json(null, 202);
+    }
+
+    public function update(UpdateClientRequest $request, Client $client)
+    {
+        $client->update($request->all());
+        $client->user->update($request->all());
+        $client->addresse->update($request->all());
+
+        return response()->json(null, 200);
     }
 }
