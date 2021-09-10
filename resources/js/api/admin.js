@@ -3,6 +3,11 @@ import axios from "axios";
 const rota = "http://localhost:8000/api/";
 
 let api = {
+
+  createCliente(params) {
+    return axios.post(rota + "admin/clients/", params);
+  },
+
   getClients(params) {
     return axios.get(rota + "admin/clients", { params });
   },

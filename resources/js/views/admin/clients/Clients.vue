@@ -13,9 +13,9 @@
                   </h5>
                 </div>
                 <div class="col-sm-4 text-right">
-                  <button class="btn btn-success btn-sm">
+                  <router-link :to="{ name: 'admin.client.create'}" class="btn btn-success btn-sm">
                     <i class="bi bi-save"></i> Novo
-                  </button>
+                  </router-link >
                 </div>
               </div>
             </div>

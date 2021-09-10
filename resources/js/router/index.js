@@ -7,6 +7,7 @@ import ClientEdit from "../views/client/ClientEdit.vue";
 import Login from "../views/auth/Login.vue";
 import Clients from "../views/admin/clients/Clients.vue";
 import ClientShowAdmin from "../views/admin/clients/ClientShowAdmin.vue"
+import ClientCreateAdmin from "../views/admin/clients/ClientCreateAdmin.vue"
 
 Vue.use(VueRouter);
 
@@ -45,9 +46,15 @@ const routes = [
     meta: { authOnly: true }
   },
   {
-    path: "/admin/cliente/:id",
+    path: "/admin/cliente/vizualizar/:id",
     name: "admin.client.show",
     component: ClientShowAdmin,
+    meta: { authOnly: true }
+  },
+  {
+    path: "/admin/cliente/cadastrar",
+    name: "admin.client.create",
+    component: ClientCreateAdmin,
     meta: { authOnly: true }
   }
 

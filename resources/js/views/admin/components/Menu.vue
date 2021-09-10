@@ -13,7 +13,7 @@
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body">
             <div class="list-group">
-              <button type="button" class="list-group-item list-group-item-action">Cadastrar</button>
+              <router-link :to="{ name: 'admin.client.create'}" type="button" class="list-group-item list-group-item-action">Cadastrar</router-link>
               <router-link :to="{ name: 'admin.clients'}" class="list-group-item list-group-item-action">Listar</router-link>
             </div>
           </div>
