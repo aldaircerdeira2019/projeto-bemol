@@ -36,7 +36,10 @@
                 class="dropdown-menu dropdown-menu"
                 aria-labelledby="navbarDropdown"
               >
-                <router-link :to="{ name: 'client.show',  params:{'id': authUser.id}}" class="dropdown-item">
+                <a v-if="this.$acl.hasRoleTo('Administrador')"  ref="#" class="dropdown-item">
+                    Painel
+                </a>
+                <router-link v-else :to="{ name: 'client.show',  params:{'id': authUser.id}}" class="dropdown-item">
                     Perfil
                 </router-link>
                 <a class="dropdown-item" @click.prevent="logout" href="#">
@@ -66,6 +69,7 @@
 </template>
 <script>
 import api from "../../../api/auth";
+import ACL from "../../../plugin/acl";
 export default {
   name: "Navbar",
   data() {
@@ -87,6 +91,7 @@ export default {
         .authenticated()
         .then((r) => {
           this.authUser = r.data;
+          Vue.prototype.$acl = new ACL.Acl(r.data);
           localStorage.setItem("auth", "true");
         })
         .catch(() => {

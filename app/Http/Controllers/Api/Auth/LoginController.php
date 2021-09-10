@@ -34,4 +34,15 @@ class LoginController extends Controller
     {
         Auth::logout();
     }
+
+    public function authenticated(){
+        $user = Auth::user();
+        $roles = $user->getRoleNames();
+        $data = [
+            "id" => $user->id,
+            "name" => $user->name,
+            "roles" => $roles,
+        ];
+        return response()->json($data);
+    }
 }
