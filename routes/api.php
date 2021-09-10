@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Client\ClientController;
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Admin\Client\AdminClientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,9 @@ Route::post('login' , [LoginController::class, 'login']);
 Route::post('logout' , [LoginController::class, 'logout']);
 
 Route::resource('cliente', ClientController::class)->only(['store', 'show', 'edit','update']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::prefix('admin')->group(function () {
+        Route::resource('/clients', AdminClientsController::class);
+    });
+});

@@ -38,4 +38,24 @@ class Client extends Model
         $this->addresse()->delete();
         $this->addresse()->create($address);
     }
+
+    public function filter(array $request){
+
+        $result =  $this->leftJoin('users', 'clients.user_id', '=', 'users.id')
+        ->select('users.name','clients.*')
+        ->where(function ($query) use($request){
+            if(isset($request['cpf']))
+            {
+                $query->Where('cpf', $request['cpf']);
+            }
+            if(isset($request['name']))
+            {
+                $query->Where('name', 'LIKE', '%'.$request['name'].'%');
+            }
+        })
+        ->with('user','addresse')
+        ->orderBy('name', 'asc')
+        ->paginate(20);
+        return $result;
+    }
 }

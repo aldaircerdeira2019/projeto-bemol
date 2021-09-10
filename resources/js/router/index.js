@@ -5,6 +5,7 @@ import ClientCreate from "../views/client/ClientCreate.vue";
 import ClientShow from "../views/client/ClientShow.vue";
 import ClientEdit from "../views/client/ClientEdit.vue";
 import Login from "../views/auth/Login.vue";
+import Clients from "../views/admin/clients/Clients.vue";
 
 Vue.use(VueRouter);
 
@@ -35,7 +36,14 @@ const routes = [
     name: "client.edit",
     component: ClientEdit,
     meta: { authOnly: true }
+  },
+  {
+    path: "/admin/clientes/",
+    name: "admin.clients",
+    component: Clients,
+    meta: { authOnly: true }
   }
+
 ];
 
 const router = new VueRouter({

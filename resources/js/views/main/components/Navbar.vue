@@ -36,9 +36,9 @@
                 class="dropdown-menu dropdown-menu"
                 aria-labelledby="navbarDropdown"
               >
-                <a v-if="this.$acl.hasRoleTo('Administrador')"  ref="#" class="dropdown-item">
-                    Painel
-                </a>
+                <router-link v-if="this.$acl.hasRoleTo('Administrador')"  :to="{ name: 'admin.clients'}" class="dropdown-item">
+                    Administração
+                </router-link>
                 <router-link v-else :to="{ name: 'client.show',  params:{'id': authUser.id}}" class="dropdown-item">
                     Perfil
                 </router-link>
