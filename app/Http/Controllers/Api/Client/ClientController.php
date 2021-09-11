@@ -14,6 +14,10 @@ class ClientController extends Controller
 {
     public function store(StoreClientRequest $request){
 
+        if(substr($request->get('cep'),0 ,2) != 69){
+            abort(403 ,'Cadastro somente para o Amazonas');
+        }
+
         $user = User::create([
             'name'      => $request->get('name'),
             'email'     => $request->get('email'),
