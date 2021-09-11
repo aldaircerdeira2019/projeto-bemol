@@ -1,64 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Projeto Bemol
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Tecnologias utilizadas:
 
-## About Laravel
+- Laravel 8
+- Docker
+- VueJs 2
+- Bootstrap 4.6
+- Bootstrap Icons
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Pacotes utilizados:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- laravel/sanctum: autenticação na Api
+- spatie/laravel-permission: gerenciamento das funções e permissões do usúario no sistema
+- vue-the-mask: validação dos inputs
+- vue-filter-date-format: formatador de data
+- vue-toastr: componete de mensagem flesh
+- laravel-vue-pagination: componete de paginação
+- vue-simple-alert: alerta em modal.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### Instalação
+1 - Clonar repositorio
+```bash
+git clone https://github.com/aldaircerdeira2019/projeto-bemol.git
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2 - rodar o docker
+```bash
+docker-compose up -d
+```
+3 - rodar para instalar as dependencias do PHP
+```bash
+docker-compose run web composer install
+```
+4 - rodar para instalar as dependencias do node
+```bash
+docker-compose run web yarn install
+```
+5 - rodar o build 
+```bash
+docker-compose run web yarn dev
+```
+6 - rodar as migrations e seed
+```bash
+docker-compose run web php artisan migrate --seed
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+7 - host http://localhost:8000/
 
-## Laravel Sponsors
+### usuario para admin
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    email      = admin@admin.com
+    password   = 12345678
 
-### Premium Partners
+### O sistema
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+- back-end - api com duas camadas de seguranção, Middleware de autenticação e permissão de usuario.
+- class seed e factory para popular o banco de dados
+- banco de dados em container Docker
+- ambiente de usuario Administrador e usuario Client
+- Administrador: gerenciamento do crud de cliente: listagem, vizualização, cadastro, atualização e exclusão.
+- filtro de busca por cpf ou nome.
+- Cliente: crud cliente: cadastro e edição somente de seu perfil.
+- validação por idade e por localozação.
+- integração com a Api https://viacep.com.br/
+- front-end em SPA single page application.
 
-## Contributing
+### Modelagem do Banco de dados
+![Inicio](public/prints/01.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Apresentação do sistema
 
-## Code of Conduct
+![Inicio](public/prints/02.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+![Inicio](public/prints/03.png)
 
-## Security Vulnerabilities
+![Inicio](public/prints/04.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![Inicio](public/prints/05.png)
 
-## License
+![Inicio](public/prints/06.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Inicio](public/prints/07.png)
+
+
